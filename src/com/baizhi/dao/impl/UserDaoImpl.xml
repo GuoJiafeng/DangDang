@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <insert id="insertUser" parameterType="User">
+        <selectKey keyProperty="user_id" resultType="java.lang.Integer" order="BEFORE">
+            SELECT USER_DANGDANG_SEQ.nextval FROM dual
+        </selectKey>
+        INSERT INTO
+        USER_DANGDANG(USER_ID,USER_EMAIL,USER_NICKNAME,USER_PASSWORD,USER_SALT,USER_STATUS)
+        VALUES (#{user_id},#{user_email},#{user_nickname},#{user_password},#{user_salt},#{user_status})
+    </insert>
+
+    <select id="selectUserByUserName" parameterType="java.lang.String" resultType="User">
+        SELECT *
+        FROM USER_DANGDANG
+        WHERE USER_EMAIL = #{emil}
+    </select>
+    <update id="updateUser" parameterType="User">
+        UPDATE USER_DANGDANG
+        <set>
+            <if test="user_email!=null and user_email!=''">
+                user_email = #{user_email},
+            </if>
+
+            <if test="user_nickname!=null and user_nickname!=''">
+                user_nickname = #{user_nickname},
+            </if>
+
+            <if test="user_password!=null and user_password!=''">
+                user_password = #{user_password},
+            </if>
+
+            <if test="user_salt!=null and user_salt!=''">
+                user_salt = #{user_salt},
+            </if>
+
+            <if test="user_status!=null and user_status!=''">
+                user_status = #{user_status},
+            </if>
+
+            <if test="user_score!=null and user_score!=''">
+                user_score = #{user_score},
+            </if>
+
+            <if test="user_login_time!=null and user_login_time!=''">
+                user_login_time = #{user_login_time},
+            </if>
+
+        </set>
+        WHERE user_email = #{user_email}
+    </update>
+
+</mapper>

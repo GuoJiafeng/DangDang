@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd" >
+<struts>
+    <package name="goods" extends="struts-default" namespace="/goods">
+
+        <action name="showEditorialRecommendationAction" class="com.baizhi.action.GoodsAction"
+                method="showEditorialRecommendationAction"/>
+        <action name="showHotBooksAction" class="com.baizhi.action.GoodsAction" method="showHotBooksAction"/>
+        <action name="showNewBooksAction" class="com.baizhi.action.GoodsAction" method="showNewBooksAction"/>
+        <action name="showNewHotBooksAction" class="com.baizhi.action.GoodsAction" method="showNewHotBooksAction"/>
+
+    </package>
+
+
+    <package name="type" extends="struts-default" namespace="/type">
+
+        <action name="showBookTypeAction" class="com.baizhi.action.TypeAction" method="showBookTypeAction"/>
+
+    </package>
+
+</struts>

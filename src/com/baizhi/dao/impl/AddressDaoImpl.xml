@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AddressDao">
+    <insert id="isertAddress" parameterType="Address">
+        <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="address_id">
+            SELECT USER_ADDRESS_SEQ.nextval FROM dual
+        </selectKey>
+
+        INSERT INTO USER_ADDRESS VALUES
+        (#{address_id},#{address_detail},#{address_post_number},#{address_user_name},#{address_user_phone},#{address_user_mobile_phone},#{user.user_id})
+
+    </insert>
+
+    <update id="updateAddress" parameterType="Address">
+        UPDATE USER_ADDRESS
+        SET ADDRESS_DETAIL            = #{address_detail},
+            ADDRESS_POST_NUMBER       = #{address_post_number},
+            ADDRESS_USER_NAME         = #{address_user_name},
+            ADDRESS_USER_PHONE        = #{address_user_phone},
+            ADDRESS_USER_MOBILE_PHONE = #{address_user_mobile_phone}
+
+        WHERE ADDRESS_ID = #{address_id}
+    </update>
+
+    <resultMap id="address01" type="Address">
+        <id property="address_id" column="address_id"/>
+        <result property="address_detail" column="address_detail"/>
+        <result property="address_post_number" column="address_post_number"/>
+        <result property="address_user_name" column="address_user_name"/>
+        <result property="address_user_phone" column="address_user_phone"/>
+        <result property="address_user_mobile_phone" column="address_user_mobile_phone"/>
+    </resultMap>
+
+    <select id="selectAddressByAddressId" parameterType="java.lang.Integer" resultType="Address">
+        SELECT
+            ADDRESS_ID,
+            ADDRESS_DETAIL,
+            ADDRESS_POST_NUMBER,
+            ADDRESS_USER_NAME,
+            ADDRESS_USER_PHONE,
+            ADDRESS_USER_MOBILE_PHONE
+        FROM USER_ADDRESS
+        WHERE ADDRESS_ID = #{address_id}
+    </select>
+
+    <select id="selectAddressByUserId" parameterType="java.lang.Integer" resultMap="address01">
+        SELECT
+            ADDRESS_ID,
+            ADDRESS_DETAIL,
+            ADDRESS_POST_NUMBER,
+            ADDRESS_USER_NAME,
+            ADDRESS_USER_PHONE,
+            ADDRESS_USER_MOBILE_PHONE
+        FROM USER_ADDRESS
+        WHERE ADDRESS_USER_ID = #{user_id}
+    </select>
+
+
+</mapper>

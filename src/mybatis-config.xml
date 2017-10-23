@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+
+    <properties resource="com/baizhi/conf/db.properties"></properties>
+
+    <typeAliases>
+        <typeAlias type="com.baizhi.entity.TypeSon" alias="TypeSon"></typeAlias>
+        <typeAlias type="com.baizhi.entity.TypeFather" alias="TypeFather"></typeAlias>
+        <typeAlias type="com.baizhi.entity.Goods" alias="Goods"></typeAlias>
+        <typeAlias type="com.baizhi.entity.PageBean" alias="PageBean"></typeAlias>
+        <typeAlias type="com.baizhi.entity.User" alias="User"></typeAlias>
+        <typeAlias type="com.baizhi.entity.Address" alias="Address"></typeAlias>
+        <typeAlias type="com.baizhi.entity.Order" alias="Order"></typeAlias>
+        <typeAlias type="com.baizhi.entity.OrderItem" alias="OrderItem"></typeAlias>
+
+    </typeAliases>
+
+
+    <environments default="e1">
+        <environment id="e1">
+
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"></property>
+                <property name="url" value="${url}"></property>
+                <property name="username" value="${username}"></property>
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/baizhi/dao/impl/GoodsDaoImpl.xml"></mapper>
+        <mapper resource="com/baizhi/dao/impl/TypeDaoImpl.xml"></mapper>
+        <mapper resource="com/baizhi/dao/impl/UserDaoImpl.xml"></mapper>
+        <mapper resource="com/baizhi/dao/impl/AddressDaoImpl.xml"></mapper>
+        <mapper resource="com/baizhi/dao/impl/OderDaoImpl.xml"></mapper>
+        <mapper resource="com/baizhi/dao/impl/OrderItemDaoImpl.xml"></mapper>
+
+    </mappers>
+</configuration>

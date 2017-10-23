@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd" >
+<struts>
+    <package name="goods" extends="struts-default" namespace="/goods">
+
+        <action name="showEditorialRecommendationAction" class="com.baizhi.action.GoodsAction"
+                method="showEditorialRecommendationAction"/>
+        <action name="showHotBooksAction" class="com.baizhi.action.GoodsAction" method="showHotBooksAction"/>
+        <action name="showNewBooksAction" class="com.baizhi.action.GoodsAction" method="showNewBooksAction"/>
+        <action name="showNewHotBooksAction" class="com.baizhi.action.GoodsAction" method="showNewHotBooksAction"/>
+        <action name="showBookDetailAction" class="com.baizhi.action.GoodsAction" method="showBookDetailAction">
+            <result type="dispatcher">/main/book_detail.jsp</result>
+        </action>
+
+    </package>
+
+
+    <package name="type" extends="struts-default" namespace="/type">
+
+        <action name="showBookTypeAction" class="com.baizhi.action.TypeAction" method="showBookTypeAction"/>
+
+        <action name="showFatherTypeById" class="com.baizhi.action.TypeAction" method="showFatherTypeById">
+            <result type="dispatcher">/main/book_list.jsp</result>
+        </action>
+
+        <action name="showSonTypeById" class="com.baizhi.action.TypeAction" method="showSonTypeById">
+            <result type="dispatcher">/main/book_list.jsp</result>
+        </action>
+
+        <action name="showBookListAction" class="com.baizhi.action.TypeAction" method="showBookListAction">
+            <result type="dispatcher">/main/book_list.jsp</result>
+        </action>
+
+    </package>
+
+
+    <package name="cart" extends="struts-default" namespace="/cart">
+        <action name="addGoodsAction" class="com.baizhi.action.CartAction" method="addGoodsAction">
+            <result name="success" type="redirect">/cart/cart_list.jsp</result>
+        </action>
+
+
+        <action name="deleteGoodsAction" class="com.baizhi.action.CartAction" method="deleteGoodsAction">
+            <result name="success" type="redirect">/cart/cart_list.jsp</result>
+        </action>
+
+
+        <action name="recoveryGoodsAction" class="com.baizhi.action.CartAction" method="recoveryGoodsAction">
+            <result name="success" type="redirect">/cart/cart_list.jsp</result>
+        </action>
+
+
+        <action name="updateGoodsAction" class="com.baizhi.action.CartAction" method="updateGoodsAction">
+            <result name="success" type="redirect">/cart/cart_list.jsp</result>
+        </action>
+
+    </package>
+
+
+    <package name="user" extends="struts-default" namespace="/user">
+
+        <action name="registerUserAction" class="com.baizhi.action.UserAction" method="registerUserAction">
+            <result name="success" type="redirect">/user/verify_form.jsp</result>
+            <result name="repeat" type="redirect">/user/verify_form.jsp</result>
+        </action>
+
+        <action name="showCodeAction" class="com.baizhi.action.UserAction" method="showCodeAction"/>
+
+        <action name="checkMailAction" class="com.baizhi.action.UserAction" method="checkMailAction">
+            <result name="success">/user/register_ok.jsp</result>
+            <result name="isCart" type="redirect">/order/address_form.jsp</result>
+        </action>
+
+        <action name="loginUserAction" class="com.baizhi.action.UserAction" method="loginUserAction">
+            <result name="success" type="redirect">/main/main.jsp</result>
+            <result name="isCart" type="redirect">/order/address_form.jsp</result>
+            <result name="unactivated" type="redirect">/user/verify_form.jsp</result>
+        </action>
+        <action name="logoutUserAction" class="com.baizhi.action.UserAction" method="logoutUserAction">
+            <result name="success" type="redirect">/main/main.jsp</result>
+        </action>
+
+    </package>
+    <package name="address" extends="struts-default" namespace="/address">
+        <action name="" class="com.baizhi.action.AddressAction" method="addAddress">
+            <!--进入订单Action  然后跳转至/order/order_ok.jsp-->
+            <result name="success" type="redirect"></result>
+        </action>
+        <action name="selectAddressByAddressId" class="com.baizhi.action.AddressAction"
+                method="selectAddressByAddressId">
+            <result name="success" type="redirect">/order/address_form.jsp</result>
+        </action>
+        <action name="selectAddressByUserId" class="com.baizhi.action.AddressAction" method="selectAddressByUserId"/>
+        <action name="addNewAddress" class="com.baizhi.action.AddressAction" method="addNewAddress">
+            <result name="success">/order/address_form.jsp</result>
+        </action>
+        <action name="updateAddress" class="com.baizhi.action.AddressAction" method="updateAddress">
+            <!--进入订单Action  然后跳转至/order/order_ok.jsp-->
+            <result name="success" type="redirect"></result>
+        </action>
+        <action name="nextAction" class="com.baizhi.action.AddressAction" method="nextAction">
+            <result name="success" type="redirect">/order/address_form.jsp</result>
+            <result name="unlogin" type="redirect">/user/login_form.jsp</result>
+        </action>
+
+
+
+    </package>
+
+    <package name="order" namespace="/order" extends="struts-default">
+        <action name="addOrderAction" class="com.baizhi.action.OrderAction" method="addOrderAction">
+            <result name="success">/order/order_ok.jsp</result>
+        </action>
+    </package>
+
+</struts>

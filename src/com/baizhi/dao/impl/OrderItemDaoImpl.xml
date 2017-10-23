@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.OrderItemDao">
+
+
+    <insert id="insertOrderItem" parameterType="OrderItem">
+        <selectKey keyProperty="orderitem_id" resultType="java.lang.Integer" order="BEFORE">
+            SELECT ORDER_DANGDANG_SEQ.nextval FROM dual
+        </selectKey>
+        INSERT INTO ORDERITEM_DANGDANG
+        (ORDERITEM_ID,ORDERITEM_GOOD_ID,ORDERITEM_COUNT,ORDERITEM_PRICE,ORDERITEM_TOTALPRICE,ORDERITEM_ORDER_ID)
+        VALUES
+        (#{orderitem_id},#{orderitem_good_id},#{orderitem_count},#{orderitem_price},#{orderitem_totalPrice},#{order.order_id})
+    </insert>
+
+</mapper>

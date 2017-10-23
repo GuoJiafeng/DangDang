@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+    <!--
+    <typeAliases>
+    <typeAlias type="" alias=""/>
+    </typeAliases>
+    -->
+
+    <properties resource="db.properties"></properties>
+
+    <typeAliases>
+        <typeAlias type="com.baizhi.entity.TypeSon" alias="TypeSon"></typeAlias>
+        <typeAlias type="com.baizhi.entity.TypeFather" alias="TypeFather"></typeAlias>
+        <typeAlias type="com.baizhi.entity.Goods" alias="Goods"></typeAlias>
+        <typeAlias type="com.baizhi.entity.PageBean" alias="PageBean"></typeAlias>
+    </typeAliases>
+
+    <!-- 运行环境 -->
+    <environments default="e1">
+        <environment id="e1">
+            <!-- 事务配置 -->
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"></property>
+                <property name="url" value="${url}"></property>
+                <property name="username" value="${username}"></property>
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 注册映射文件 -->
+    <mappers>
+        <!-- <mapper resource=""/> -->
+        <mapper resource="com/baizhi/dao/impl/GoodDaoImpl.xml"></mapper>
+        <mapper resource="com/baizhi/dao/impl/TypeDaoImpl.xml"></mapper>
+    </mappers>
+</configuration>

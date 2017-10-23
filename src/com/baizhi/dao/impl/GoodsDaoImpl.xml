@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.GoodsDao">
+
+    <select id="showEditorialRecommendation" resultType="Goods">
+         <![CDATA[
+        SELECT g.*
+        FROM (SELECT
+                  GOOD_ID,
+                  GOOD_NAME,
+                  GOOD_AUTHOR,
+                  GOOD_PRESS,
+                  GOOD_PUBLICATION_TIME,
+                  GOOD_CONTENT_VALIDITY,
+                  GOOD_PRICE,
+                  GOOD_DANGDANG_PRICE,
+                  GOOD_IMAGE
+              FROM GOODS
+              ORDER BY GOOD_EDITORIAL_SCORE DESC) g
+        WHERE ROWNUM <= 2
+        ]]>
+
+    </select>
+
+
+    <select id="showHotBooks" resultType="Goods">
+        <![CDATA[
+        SELECT g.*
+        FROM (SELECT
+                  GOOD_ID,
+                  GOOD_NAME,
+                  GOOD_PRICE,
+                  GOOD_DANGDANG_PRICE,
+                  GOOD_IMAGE
+              FROM GOODS
+              ORDER BY GOOD_SALES_VOLUME DESC) g
+        WHERE ROWNUM <= 8
+        ]]>
+    </select>
+
+
+    <select id="showNewBooks" resultType="Goods">
+ <![CDATA[
+        SELECT g.*
+        FROM (SELECT
+                  GOOD_ID,
+                  GOOD_NAME,
+                  GOOD_PRICE,
+                  GOOD_DANGDANG_PRICE,
+                  GOOD_IMAGE
+              FROM GOODS
+              ORDER BY GOOD_SHELF_TIME DESC) g
+        WHERE ROWNUM <= 8
+        ]]>
+
+
+    </select>
+
+
+    <select id="showNewHotBooks" resultType="Goods">
+
+          <![CDATA[
+        SELECT g3.*
+        FROM (
+                 SELECT g2.*
+                 FROM (
+                          SELECT g1.*
+                          FROM (SELECT
+                                    GOOD_ID,
+                                    GOOD_NAME,
+                                    GOOD_SALES_VOLUME
+                                FROM GOODS
+                                ORDER BY GOOD_SHELF_TIME DESC
+                               ) g1
+                          WHERE ROWNUM <= 100
+                      ) g2
+                 ORDER BY GOOD_SALES_VOLUME DESC
+             ) g3
+        WHERE ROWNUM <= 8
+        ]]>
+    </select>
+
+
+    <select id="showBooksByFatherId" parameterType="java.lang.Integer" resultType="Goods">
+        <![CDATA[
+        SELECT *
+        FROM (
+            SELECT
+                g.*,
+                ROWNUM rn
+            FROM (
+                     SELECT
+                         GOOD_ID,
+                         GOOD_NAME,
+                         GOOD_AUTHOR,
+                         GOOD_PRESS,
+                         GOOD_PUBLICATION_TIME,
+                         GOOD_CONTENT_VALIDITY,
+                         GOOD_PRICE,
+                         GOOD_DANGDANG_PRICE,
+                         GOOD_IMAGE
+                     FROM GOODS
+                     WHERE GOOD_TYPE_FATHER_ID = #{fid}
+                 ) g
+            WHERE ROWNUM < =#{pb.end}
+        )
+        WHERE rn BETWEEN #{pb.begin} AND #{pb.end}
+        ]]>
+    </select>
+
+    <select id="showBooksBySonId" parameterType="java.lang.Integer" resultType="Goods">
+       <![CDATA[
+        SELECT *
+        FROM (
+            SELECT
+                g.*,
+                ROWNUM rn
+            FROM (
+                     SELECT
+                         GOOD_ID,
+                         GOOD_NAME,
+                         GOOD_AUTHOR,
+                         GOOD_PRESS,
+                         GOOD_PUBLICATION_TIME,
+                         GOOD_CONTENT_VALIDITY,
+                         GOOD_PRICE,
+                         GOOD_DANGDANG_PRICE,
+                         GOOD_IMAGE
+                     FROM GOODS
+                     WHERE GOOD_TYPE_SON_ID = #{sid}
+                 ) g
+            WHERE ROWNUM < =#{pb.end}
+        )
+        WHERE rn BETWEEN #{pb.begin} AND #{pb.end}
+        ]]>
+    </select>
+
+
+    <select id="getFatherTotalCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM GOODS
+        WHERE GOOD_TYPE_FATHER_ID = #{id}
+    </select>
+    <select id="getSonTotalCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM GOODS
+        WHERE GOOD_TYPE_SON_ID = #{id}
+    </select>
+
+
+    <select id="shwoBookDetailById" parameterType="java.lang.Integer" resultType="Goods">
+        SELECT *
+        FROM GOODS
+        WHERE GOOD_ID = #{id}
+    </select>
+</mapper>
